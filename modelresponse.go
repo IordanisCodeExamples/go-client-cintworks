@@ -32,7 +32,7 @@ type QuotaResponse struct {
 	Limit            int                 `json:"limit"`
 	TargetGroup      TargetGroupResponse `json:"targetGroup"`
 	PricingStrategy  int                 `json:"pricingStrategy"`
-	FeasibilityCount int                 `json:"feasibilityCount"`
+	FeasibilityCount float64             `json:"feasibilityCount"`
 	Errors           []ErrorResponse     `json:"errors"`
 }
 
