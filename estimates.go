@@ -15,7 +15,7 @@ func (c *Client) GetFeasibilityEstimates(surveySettings SurveySettingsRequest) (
 		return SurveyResponse{}, fmt.Errorf("failed to marshal survey settings: %w", err)
 	}
 
-	responseBody, err := c.post(estimatesEndpoint, string(payloadBytes))
+	responseBody, err := c.post(EstimatesEndpoint, string(payloadBytes))
 	if err != nil {
 		return SurveyResponse{}, fmt.Errorf("failed to post to feasibility estimates endpoint: %w", err)
 	}
