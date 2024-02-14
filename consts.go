@@ -1,7 +1,7 @@
 package client
 
 const (
-	EstimatesEndpoint = "/ordering/FeasibilityEstimates?version=2"
+	EstimatesEndpoint = "/ordering/FeasibilityEstimates"
 	acceptHeader      = "application/json"
 	contentTypeHeader = "application/*+json"
 )
