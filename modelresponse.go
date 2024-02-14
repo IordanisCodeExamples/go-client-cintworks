@@ -11,7 +11,7 @@ type SurveyResponse struct {
 	FieldPeriod                     int                              `json:"fieldPeriod"`
 	QuotaGroups                     []QuotaGroupResponse             `json:"quotaGroups"`
 	DedupeTags                      []string                         `json:"dedupeTags"`
-	Feasibility                     int                              `json:"feasibility"`
+	Feasibility                     float64                          `json:"feasibility"`
 	FeasibilityCount                int                              `json:"feasibilityCount"`
 	ParticipationExclusionOverrides []ParticipationExclusionResponse `json:"participationExclusionOverrides"`
 	RespondentIdentifiableInfo      bool                             `json:"respondentIdentifiableInfo"`
@@ -32,7 +32,7 @@ type QuotaResponse struct {
 	Limit            int                 `json:"limit"`
 	TargetGroup      TargetGroupResponse `json:"targetGroup"`
 	PricingStrategy  int                 `json:"pricingStrategy"`
-	FeasibilityCount float64             `json:"feasibilityCount"`
+	FeasibilityCount int                 `json:"feasibilityCount"`
 	Errors           []ErrorResponse     `json:"errors"`
 }
 
