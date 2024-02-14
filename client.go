@@ -4,7 +4,6 @@
 package client
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -15,28 +14,28 @@ import (
 // Client encapsulates the necessary configuration for making authenticated requests to the Cint Demand API.
 // It holds the API's base domain, an API key for authentication, and an http.Client to execute the requests.
 type Client struct {
-	domain string
-	apiKey string
-	client *http.Client
+	Domain string
+	ApiKey string
+	Client *http.Client
 }
 
-// NewClient initializes a new Client with the specified domain, API key, and an http.Client.
+// New initializes a new Client with the specified domain, API key, and an http.Client.
 // It validates the inputs to ensure that the client is configured with all necessary information
 // for making requests to the Cint Demand API. Returns an error if any required field is missing.
-func NewClient(domain, apiKey string, httpClient *http.Client) (*Client, error) {
+func New(domain, apiKey string, httpClient *http.Client) (*Client, error) {
 	switch {
 	case domain == ``:
-		return nil, errors.New(`error_no_domain`)
+		return nil, ErrNoDomain
 	case apiKey == ``:
-		return nil, errors.New(`error_bno_api_key`)
+		return nil, ErrNoAPIKey
 	case httpClient == nil:
-		return nil, errors.New(`error_no_http_client`)
+		return nil, ErrNoHTTPClient
 	}
 
 	return &Client{
-		domain: domain,
-		apiKey: apiKey,
-		client: httpClient,
+		Domain: domain,
+		ApiKey: apiKey,
+		Client: httpClient,
 	}, nil
 }
 
@@ -46,7 +45,7 @@ func NewClient(domain, apiKey string, httpClient *http.Client) (*Client, error) 
 // ensuring proper URL formatting. Returns the response body as bytes or an error if the request
 // fails or cannot be sent.
 func (c *Client) post(endpoint string, payload string) ([]byte, error) {
-	baseURL, err := url.Parse(c.domain)
+	baseURL, err := url.Parse(c.Domain)
 	if err != nil {
 		return nil, fmt.Errorf("invalid base URL: %w", err)
 	}
@@ -62,11 +61,11 @@ func (c *Client) post(endpoint string, payload string) ([]byte, error) {
 		return nil, err
 	}
 
-	req.Header.Add("accept", "application/json")
-	req.Header.Add("content-type", "application/*+json")
-	req.Header.Add("X-Api-Key", c.apiKey)
+	req.Header.Add("accept", acceptHeader)
+	req.Header.Add("content-type", contentTypeHeader)
+	req.Header.Add("X-Api-Key", c.ApiKey)
 
-	res, err := c.client.Do(req)
+	res, err := c.Client.Do(req)
 	if err != nil {
 		return nil, err
 	}

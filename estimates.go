@@ -5,10 +5,6 @@ import (
 	"fmt"
 )
 
-const (
-	estimatesEndpoint = "/ordering/FeasibilityEstimates?version=2"
-)
-
 // GetFeasibilityEstimates sends a survey settings request to the Cint Demand API
 // to obtain feasibility estimates. It takes a SurveySettingsRequest struct as input,
 // serializes it to JSON, sends it as a payload in a POST request, and then deserializes
